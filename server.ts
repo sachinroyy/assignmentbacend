@@ -5,6 +5,7 @@ import fs from 'fs';
 import express, { Application } from 'express';
 import cors from 'cors';
 import connectDB from './config/db';
+import { corsOptions } from './config/cors';
 import authRoutes from './routes/auth';
 import taskRoutes from './routes/tasks';
 
@@ -38,14 +39,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // CORS configuration
-app.use(cors({
-  origin: process.env.NODE_ENV === 'production' 
-    ? 'https://frontendassignments.netlify.app'
-    : 'http://localhost:5173',
-  credentials: true,
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization']
-}));
+app.use(cors(corsOptions));
 
 // Make uploads folder static
 
